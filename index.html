@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,24 +14,24 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,200;0,300;1,400;1,600&family=Comic+Neue:ital,wght@0,300;1,300;1,700&family=Quicksand:wght@300;500;700&family=Roboto&display=swap"
         rel="stylesheet">
-    <title>Random Card Dealer Generator</title>
+    <title>Sorting cards with select</title>
 </head>
 
 <body>
-    <h1>Random Card Dealer Generator</h1>
+    <h1>Sorting cards with select</h1>
 
-    <button type="submit" id="boton" onclick ="cargarCartas(event)">CAMBIAR</button>
-    
-    <div class="carta">
-        <div class="carta-numeros" id="numeros" value=""></div>
-         <div class="tipo tipo-arriba" id="tipo-arriba"></div>
-        <div class="tipo tipo-abajo" id="tipo-abajo"></div>
-        
-    </div>
+    <section class="section section-botones" id="botones">
+        <label for="inputUsuario" class="label">Ingrese el número de cartas que desea desplegar</label>
+        <input type="text" name="" id="inputUsuario" class="input" value="" style="font-size: larger;">
+        <a href="#" class="btn" id="btnGenCarta"> GENERAR CARTAS</a>
+        <a href="#" class="btn" id="btnClasCarta"> ORDERNAR CARTAS</a>
+    </section>
 
+    <section class="section section-generar" id="sec-generar"></section>
 
+    <section class="section section-algoritmo" id="sec-algoritmo"></section>
 
-    <script src="index.js"></script>
+    <script src="selectionSort.js"></script>
 
 </body>
 
