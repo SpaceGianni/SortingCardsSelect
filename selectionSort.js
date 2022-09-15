@@ -1,4 +1,4 @@
-const valores = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+const valores = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 const tipos = ["♥", "♦", "♠ ", "♠"];
 
 let arrCartas = [];
@@ -26,7 +26,7 @@ let botonGenerar = document.getElementById("btnGenCarta"); //llamo al botón que
 
 botonGenerar.addEventListener("click", () => { //escucho al botón que crea las cartas, lo asocio a la fx dibujar y lo guardo en una variable
     let resultado0 = dibujarCarta(arrCartas);
-    //console.log(resultado0)
+   
 });
 
 function dibujarCarta() {
@@ -35,7 +35,7 @@ function dibujarCarta() {
     let contenedorCarta = document.createElement("div");// creo el contenedor de las cartas
 
     for (i = 0; i < inputUsuario(); i++) {
-        let sortNumbers = valores[Math.floor((Math.random() * 12) + 1)];
+        let sortNumbers = valores[Math.floor((Math.random() * 13))];
         let sortTipos = tipos[Math.floor(Math.random() * 4)];
 
         let color = sortTipos === "♥" || sortTipos === "♦" ? "red" : "black"; //condición para renderizar el color del tipo de carta
@@ -71,13 +71,14 @@ function dibujarCarta() {
         nuevaCarta.append(divNumero, divTipo, divTipo2) //añado contenido a la carta: el número y dos tipos
         contenedorCarta.appendChild(nuevaCarta); //añado la carta a su contenedor
     }
-
+    //console.log("arrCartas", arrCartas);
     seccionCarta.append(contenedorCarta); //añado el contenedor a la seccion
 }
 
 function cambiarValor(valor) { //función que condiciona algunos valores de las cartas para que aparezcan en el orden deseado
     switch (valor) {
         case 1: return "A";
+        case 10: return "10";
         case 11: return "J";
         case 12: return "Q";
         case 13: return "K";
@@ -88,46 +89,41 @@ function cambiarValor(valor) { //función que condiciona algunos valores de las 
 
 //ORDENAR LAS CARTAS
 
-let arrSorted = [];
-
 let secAlgoritmo = document.getElementById("sec-algoritmo"); //llamo a la seccion donde estáran las cartas ordenadas
 
 let botonOrdenar = document.getElementById("btnClasCarta"); //llamo al botón que dispara la función que ordena las cartas
 botonOrdenar.addEventListener("click", () => {
-    arrSorted = selectSort2(arrCartas);
+    secAlgoritmo.innerHTML = "";
+    selectSort(arrCartas);
 
 });
 
-
-function selectSort2(arr) {
-    for (i = 0; i < arr.length; i++) {
-        for (j = 0; j < arr.length - 1; j++) {
-            if (arr[j].numero > arr[j + 1].numero) {
-                let aux = arr[j].numero;
-                arr[j].numero = arr[j + 1].numero;
-                arr[j + 1].numero = aux;
-                //console.log("posicion j+1", arr[j+1].numero);
+function selectSort(arr) {
+    let min = 0;
+    while (min < arr.length - 1) {
+        for (let i = min + 1; i < arr.length; i++) {
+            if (arr[min].numero > arr[i].numero) {
+                let aux = arr[min];
+                arr[min] = arr[i];
+                arr[i] = aux;
             }
         }
+        min++;
+        dibujarCartaOrdenadas(arr);
     }
     return arr;
+}
 
-};
-
-botonOrdenar.addEventListener("click", () => {
-    dibujarCartaOrdenadas(arrSorted);
-    // console.log(arrSorted);
-})
 
 
 
 function dibujarCartaOrdenadas(arr) {
-    console.log("arrSorted", arrSorted);
+    
     let contenedorCarta = document.createElement("div");// creo el contenedor de las cartas
 
     for (i = 0; i < arr.length; i++) {
-        
-        contenedorCarta.classList.add("section-cartas"); //aplico clase al contenedor de la carta
+
+        contenedorCarta.classList.add("section-cartas2"); //aplico clase al contenedor de la carta
 
         let nuevaCarta = document.createElement("div"); //creo la carta como div
         let divNumero = document.createElement("div"); //creo el número de la carta como div
@@ -139,17 +135,19 @@ function dibujarCartaOrdenadas(arr) {
         divTipo.classList.add("tipo-arriba"); //aplico clase arriba al tipo de la carta
         divTipo2.classList.add("tipo-abajo"); //aplico clase abajo al tipo de la carta
 
-        let color = arrSorted[i].tipo === "♥" || arrSorted[i].tipo === "♦" ? "red" : "black"; //condición para renderizar el color del tipo de carta
+        let color = arr[i].tipo === "♥" || arr[i].tipo === "♦" ? "red" : "black"; //condición para renderizar el color del tipo de carta
         divTipo.style.color = color; //al tipo de la carta de la aplico el color que le corresponda
-        divTipo2.style.color = color; //al tipo d
-
-        divTipo.innerHTML = arrSorted[i].tipo; //añado el tipo al div tipo
-        divTipo2.innerHTML = arrSorted[i].tipo; //añado el tipo al div tipo
-        divNumero.innerHTML = arrCartas[i].numero; // añado el número de la carta al div
+        divTipo2.style.color = color; //idem
         
+        
+        divNumero.innerHTML = cambiarValor(arr[i].numero);// les asocio la función cambiar valor a los numeros creados
+
+        divTipo.innerHTML = arr[i].tipo; //añado el tipo al div tipo
+        divTipo2.innerHTML = arr[i].tipo; //añado el tipo al div tipo
+       
         nuevaCarta.append(divNumero, divTipo, divTipo2) //añado contenido a la carta: el número y dos tipos
         contenedorCarta.appendChild(nuevaCarta); //añado la carta a su contenedor
-
+        
     }
 
     secAlgoritmo.append(contenedorCarta); //añado el contenedor a la seccion
@@ -159,4 +157,16 @@ function dibujarCartaOrdenadas(arr) {
 
 
 
+
+
+
+// function CambioPosicionA() {
+//     if (arr[i].numero === "A") {
+//         arr[0] = arr[i];
+//     }
+// }
+
+
+
+//(arr[i].number === "A" ? arr[0].number = arr[i].number : arr[i].number)
 
